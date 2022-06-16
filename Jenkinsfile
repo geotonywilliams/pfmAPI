@@ -5,7 +5,7 @@ pipeline{
         stage('Build'){
             steps{
                 withMaven(maven:'Maven3'){
-                    echo branch
+                    echo BRANCH_NAME
                     sh 'mvn clean compile'
                 }
             }
