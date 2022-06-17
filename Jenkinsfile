@@ -9,6 +9,7 @@ pipeline{
             steps{
                 withMaven(maven:'Maven3'){
                     echo env.GIT_BRANCH
+                    echo "Builing the project ${env.GIT_BRANCH}"
                     sh 'mvn clean compile'
                 }
             }
@@ -22,8 +23,6 @@ pipeline{
                 }
             }
         }
-
-
 
         stage('Deploy'){
             steps{
