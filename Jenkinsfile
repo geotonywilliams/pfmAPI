@@ -4,39 +4,30 @@ pipeline{
         pollSCM('0-59 * * * *')
     }
 
-    environment{
-        JBOSS_CRED = credentials('MyJBossCredentials')
+    tools{
+    maven 'Maven3'
+    jdk 'JDK9'
     }
 
     stages{
         stage('Build'){
             steps{
-                withMaven(maven:'Maven3'){
-                    echo env.GIT_BRANCH
-                    echo "Builing the project ${env.GIT_BRANCH}"
+                    echo "Building the project ${env.GIT_BRANCH}"
                     sh 'mvn clean compile'
-                }
-
-                withCredentials([usernamePassword(credentialsId:'MyJBossCredentials', usernameVariable: 'USER', passwordVariable: 'PWD')]){
-                    echo "Username is ${USER} and Password is ${PWD}"
-                }
             }
         }
 
         stage('Test'){
             steps{
-                withMaven(maven:'Maven3'){
                     echo 'Testing the Application'
-                    echo JBOSS_CRED;
-                }
             }
         }
 
         stage('Deploy'){
             steps{
-                withMaven(maven:'Maven3'){
                  echo 'Deploying the Application'
-                 echo "${env.MyEnvVariable}"
+                withCredentials([usernamePassword(credentialsId:'MyJBossCredentials', usernameVariable: 'USER', passwordVariable: 'PWD')]){
+                    sh 'jboss-cli --connect --controller=localhost:9995 --user=admin --password=Temp123$ --command=deploy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\pfmAPI\\target\\pfmAPI2.war --name=pfmAPI --runtime-name=pfmAPI.war --force'
                 }
             }
         }
