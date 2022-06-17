@@ -36,6 +36,7 @@ pipeline{
             steps{
                 withMaven(maven:'Maven3'){
                  echo 'Deploying the Application'
+                 echo "${env.MyEnvVariable}"
                 }
             }
         }
