@@ -4,6 +4,10 @@ pipeline{
         pollSCM('0-59 * * * *')
     }
 
+    environment{
+        JBOSS_CRED = credentials('MyJBossCredentials')
+    }
+
     stages{
         stage('Build'){
             steps{
@@ -19,7 +23,7 @@ pipeline{
             steps{
                 withMaven(maven:'Maven3'){
                     echo 'Testing the Application'
-
+                    echo JBOSS_CRED;
                 }
             }
         }
