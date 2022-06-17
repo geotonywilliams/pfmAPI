@@ -13,7 +13,7 @@ pipeline{
         stage('Build'){
             steps{
                     echo "Building the project ${env.GIT_BRANCH}"
-                    sh 'mvn clean compile'
+                    sh 'mvn clean install'
             }
         }
 
