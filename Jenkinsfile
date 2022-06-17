@@ -1,11 +1,14 @@
 pipeline{
     agent any
+    triggers{
+        pollSCM('0-59 * * * *')
+    }
 
     stages{
         stage('Build'){
             steps{
                 withMaven(maven:'Maven3'){
-                    echo env.BRANCH_NAME
+                    echo env.GIT_BRANCH
                     sh 'mvn clean compile'
                 }
             }
