@@ -26,11 +26,14 @@ pipeline{
         stage('Deploy'){
             steps{
                 withMaven(maven:'Maven3'){
-                    echo 'Deploying the Application'
+                    echo 'Deploying the Application.'
 
                 }
             }
         }
+
+
+
 
 
 
