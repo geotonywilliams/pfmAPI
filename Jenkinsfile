@@ -17,8 +17,8 @@ pipeline{
                     sh 'mvn clean compile'
                 }
 
-                withCredentials([usernamePassword(credentials:'MyJBossCredentials', usernameVariable: USER, passwordVariable: PWD)]){
-                    echo "Username is ${usernameVariable} and Password is ${passwordVariable}"
+                withCredentials([usernamePassword(credentials:'MyJBossCredentials', usernameVariable: 'USER', passwordVariable: 'PWD')]){
+                    echo "Username is ${USER} and Password is ${PWD}"
                 }
             }
         }
