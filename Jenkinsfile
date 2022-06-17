@@ -16,6 +16,10 @@ pipeline{
                     echo "Builing the project ${env.GIT_BRANCH}"
                     sh 'mvn clean compile'
                 }
+
+                withCredentials([usernamePassword(credentials:'MyJBossCredentials', usernameVariable: MYUSER, passwordVariable: MYPASS)]){
+                    echo "Username is ${MYUSER} and Password is ${MYPASS}"
+                }
             }
         }
 
